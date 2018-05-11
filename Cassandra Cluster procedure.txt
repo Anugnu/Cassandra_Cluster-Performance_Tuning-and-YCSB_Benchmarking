@@ -1,0 +1,21 @@
+yum update -y
+yum install java -y
+
+Install Cassandra on each node
+vi /etc/yum.repos.d/cassandra.repo
+[cassandra]
+name=Apache Cassandra
+baseurl=https://www.apache.org/dist/cassandra/redhat/311x/
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://www.apache.org/dist/cassandra/KEYS
+
+Disable Firewall
+systemctl stop firewalld
+systemctl daemon-reload
+
+Stop Cassandra if you have started it already
+systemctl stop cassandra   or	service cassandra stop	
+
+rpc/listen=public ip
+

@@ -1,0 +1,47 @@
+Cassandra Container:-
+kubectl run givename --image=urdockerimage --port=xxxx
+kubectl get pods
+kubectl describe pods pod_name
+kubectl exec -it pod_name bash
+
+cqlsh
+create keyspace ycsb WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor': 1 };
+use ycsb;
+create table usertable (
+    y_id varchar primary key,
+    field0 varchar,
+    field1 varchar,
+    field2 varchar,
+    field3 varchar,
+    field4 varchar,
+    field5 varchar,
+    field6 varchar,
+    field7 varchar,
+    field8 varchar,
+    field9 varchar);
+
+
+Port Forwarding:
+kubectl port-forward pod_name 9042:9042
+
+DiskUsage:
+docker system df -v
+
+Monitor:
+wget http://hisham.hm/htop/releases/2.2.0/htop-2.2.0.tar.gz
+tar xvfz htop-2.2.0tar.gz
+yum install htop -y
+htop
+
+Workload:
+./bin/ycsb load cassandra-cql -p hosts="hostip" -threads 128 -p fieldcount=16 -p fieldlength=4000 -p operationcount=10400000 -p recordcount=10000000 -p requestdistribution=uniform -p cassandra.coreconnections=32 -p hdrhistogram.fileoutput=true -p measurement.trackjvm = true -P workloads/workloadb -s > load.txt
+
+./bin/ycsb load cassandra-cql -p hosts="hostip" -threads 128 -p operationcount=10400000 -p requestdistribution=uniform -p cassandra.coreconnections=32 -p hdrhistogram.fileoutput=true -p measurement.trackjvm = true -P workloads/workloadb -s > workloadaloadres.txt
+
+Delete YCSB;
+DROP TABLE users;
+DROP KEYSPACE demodb;
+
+Delete Pod:
+Kubectl get pods
+kubectl delete deployments pod_name
